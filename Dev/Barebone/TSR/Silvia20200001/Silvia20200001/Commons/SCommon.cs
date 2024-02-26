@@ -2238,6 +2238,25 @@ namespace Charlotte.Commons
 		//
 		// * 終了位置 == 最後の文字の次の位置
 
+#if false // ParseIsland 使用例
+
+		public void Test01()
+		{
+			string text = "<h1>Hello, Happy World!</h1>";
+
+			string[] isld = SCommon.ParseIsland(text, "Hello, Happy World!");
+
+			Console.WriteLine(isld[0]);
+			Console.WriteLine(isld[1]);
+			Console.WriteLine(isld[2]);
+
+			isld = SCommon.ParseIsland(text, "Hello, World!");
+
+			Console.WriteLine(isld == null); // True
+		}
+
+#endif
+
 #if false // ParseEnclosed 使用例
 
 		private static string RES_TEXT = @"
@@ -2274,6 +2293,25 @@ namespace Charlotte.Commons
 
 				text = encl[4]; // </strong> 以降
 			}
+		}
+
+#endif
+
+#if false // GetIsland 使用例
+
+		public void Test01()
+		{
+			string text = "<h1>Hello, Happy World!</h1>";
+
+			int[] isld = SCommon.GetIsland(text, 0, "Hello, Happy World!");
+
+			Console.WriteLine(text.Substring(0, isld[0]));
+			Console.WriteLine(text.Substring(isld[0], isld[1] - isld[0]));
+			Console.WriteLine(text.Substring(isld[1]));
+
+			isld = SCommon.GetIsland(text, 0, "Hello, World!");
+
+			Console.WriteLine(isld == null); // True
 		}
 
 #endif
@@ -2402,6 +2440,324 @@ namespace Charlotte.Commons
 				ends[0],
 				ends[1],
 			};
+		}
+
+#if false // ParseNextIsland 使用例
+
+		public void Test01()
+		{
+			string RES_HTML = @"
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Attribute-less HTML Sample</title>
+	</head>
+	<body>
+
+		<!-- h1要素 -->
+		<h1>Heading</h1>
+
+		<!-- p要素 -->
+		<p>This is a paragraph.</p>
+
+		<!-- div要素 -->
+		<div>
+			<!-- span要素 -->
+			<span>This is a span inside a div.</span>
+		</div>
+
+	</body>
+</html>
+
+";
+
+			string html = RES_HTML.Trim();
+
+			for (; ; )
+			{
+				int tagIndex;
+				string[] isld = SCommon.ParseNextIsland(html, out tagIndex
+					, "<p>", true
+					, "</p>", true
+					, "<h1>", true
+					, "</h1>", true
+					, "<div>", true
+					, "</div>", true
+					, "<head>", true
+					, "</head>", true
+					);
+
+				if (isld == null)
+					break;
+
+				Console.WriteLine("tagIndex: " + tagIndex);
+				Console.WriteLine("tag: " + isld[1]);
+
+				html = isld[2];
+			}
+		}
+
+#endif
+
+#if false // ParseNextEnclosed 使用例
+
+		public void Test01()
+		{
+			string RES_HTML = @"
+
+<head>
+	<meta charset=""UTF-8"">
+	<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+	<title>HTML Sample</title>
+</head>
+<body>
+
+<!-- 通常の要素 -->
+<div>
+	<h1>This is a heading</h1>
+	<p>This is a paragraph.</p>
+	<a href=""#"">This is a link</a>
+</div>
+
+<!-- シングルタグの要素 -->
+<img src=""example.jpg"" alt=""Example Image"">
+<br>
+<hr>
+
+<!-- span 要素 -->
+<p>This is a <span style=""color: red;"">red</span> text.</p>
+
+</body>
+</html>
+
+";
+
+			string html = RES_HTML.Trim();
+
+			for (; ; )
+			{
+				int tagIndex;
+				string[] encl = SCommon.ParseNextEnclosed(html, out tagIndex
+					, "<div", ">", true
+					, "</div", ">", true
+					, "<span", ">", true
+					, "</span", ">", true
+					);
+
+				if (encl == null)
+					break;
+
+				Console.WriteLine("tagIndex: " + tagIndex);
+				Console.WriteLine("attrPart: " + encl[2]);
+
+				html = encl[4];
+			}
+		}
+
+#endif
+
+#if false // GetNextIsland 使用例
+
+		public void Test01()
+		{
+			string RES_HTML = @"
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Attribute-less HTML Sample</title>
+	</head>
+	<body>
+
+		<!-- h1要素 -->
+		<h1>Heading</h1>
+
+		<!-- p要素 -->
+		<p>This is a paragraph.</p>
+
+		<!-- div要素 -->
+		<div>
+			<!-- span要素 -->
+			<span>This is a span inside a div.</span>
+		</div>
+
+	</body>
+</html>
+
+";
+
+			string html = RES_HTML.Trim();
+
+			for (int index = 0; ; )
+			{
+				int tagIndex;
+				int[] isld = SCommon.GetNextIsland(html, index, out tagIndex
+					, "<p>", true
+					, "</p>", true
+					, "<h1>", true
+					, "</h1>", true
+					, "<div>", true
+					, "</div>", true
+					, "<head>", true
+					, "</head>", true
+					);
+
+				if (isld == null)
+					break;
+
+				Console.WriteLine("tagIndex: " + tagIndex);
+				Console.WriteLine("tag: " + html.Substring(isld[0], isld[1] - isld[0]));
+
+				index = isld[1];
+			}
+		}
+
+#endif
+
+#if false // GetNextEnclosed 使用例
+
+		public void Test02()
+		{
+			string RES_HTML = @"
+
+<head>
+	<meta charset=""UTF-8"">
+	<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+	<title>HTML Sample</title>
+</head>
+<body>
+
+<!-- 通常の要素 -->
+<div>
+	<h1>This is a heading</h1>
+	<p>This is a paragraph.</p>
+	<a href=""#"">This is a link</a>
+</div>
+
+<!-- シングルタグの要素 -->
+<img src=""example.jpg"" alt=""Example Image"">
+<br>
+<hr>
+
+<!-- span 要素 -->
+<p>This is a <span style=""color: red;"">red</span> text.</p>
+
+</body>
+</html>
+
+";
+
+			string html = RES_HTML.Trim();
+
+			for (int index = 0; ; )
+			{
+				int tagIndex;
+				int[] encl = SCommon.GetNextEnclosed(html, index, out tagIndex
+					, "<div", ">", true
+					, "</div", ">", true
+					, "<span", ">", true
+					, "</span", ">", true
+					);
+
+				if (encl == null)
+					break;
+
+				Console.WriteLine("tagIndex: " + tagIndex);
+				Console.WriteLine("attrPart: " + html.Substring(encl[1], encl[2] - encl[1]));
+
+				index = encl[3];
+			}
+		}
+
+#endif
+
+		public static string[] ParseNextIsland(string text, out int tagIndex, params object[] tagTable)
+		{
+			string[] nextIsld = null;
+			tagIndex = -1;
+
+			for (int index = 0; index * 2 < tagTable.Length; index++)
+			{
+				object[] tags = SCommon.GetPart(tagTable, index * 2, 2);
+				string[] isld = SCommon.ParseIsland(text, (string)tags[0], (bool)tags[1]);
+
+				if (isld == null)
+					continue;
+
+				if (nextIsld != null && nextIsld[0].Length <= isld[0].Length)
+					continue;
+
+				nextIsld = isld;
+				tagIndex = index;
+			}
+			return nextIsld;
+		}
+
+		public static string[] ParseNextEnclosed(string text, out int tagIndex, params object[] tagTable)
+		{
+			string[] nextEncl = null;
+			tagIndex = -1;
+
+			for (int index = 0; index * 3 < tagTable.Length; index++)
+			{
+				object[] tags = SCommon.GetPart(tagTable, index * 3, 3);
+				string[] encl = SCommon.ParseEnclosed(text, (string)tags[0], (string)tags[1], (bool)tags[2]);
+
+				if (encl == null)
+					continue;
+
+				if (nextEncl != null && nextEncl[0].Length <= encl[0].Length)
+					continue;
+
+				nextEncl = encl;
+				tagIndex = index;
+			}
+			return nextEncl;
+		}
+
+		public static int[] GetNextIsland(string text, int startIndex, out int tagIndex, params object[] tagTable)
+		{
+			int[] nextIsld = null;
+			tagIndex = -1;
+
+			for (int index = 0; index * 2 < tagTable.Length; index++)
+			{
+				object[] tags = SCommon.GetPart(tagTable, index * 2, 2);
+				int[] isld = SCommon.GetIsland(text, startIndex, (string)tags[0], (bool)tags[1]);
+
+				if (isld == null)
+					continue;
+
+				if (nextIsld != null && nextIsld[0] <= isld[0])
+					continue;
+
+				nextIsld = isld;
+				tagIndex = index;
+			}
+			return nextIsld;
+		}
+
+		public static int[] GetNextEnclosed(string text, int startIndex, out int tagIndex, params object[] tagTable)
+		{
+			int[] nextEncl = null;
+			tagIndex = -1;
+
+			for (int index = 0; index * 3 < tagTable.Length; index++)
+			{
+				object[] tags = SCommon.GetPart(tagTable, index * 3, 3);
+				int[] encl = SCommon.GetEnclosed(text, startIndex, (string)tags[0], (string)tags[1], (bool)tags[2]);
+
+				if (encl == null)
+					continue;
+
+				if (nextEncl != null && nextEncl[0] <= encl[0])
+					continue;
+
+				nextEncl = encl;
+				tagIndex = index;
+			}
+			return nextEncl;
 		}
 
 		public static byte[] Compress(byte[] src)
