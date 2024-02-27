@@ -2242,17 +2242,31 @@ namespace Charlotte.Commons
 
 		public void Test01()
 		{
-			string text = "<h1>Hello, Happy World!</h1>";
+			string RES_TEXT = @"
 
-			string[] isld = SCommon.ParseIsland(text, "Hello, Happy World!");
+Sure, here's a simple English sentence where the word ""Hello"" appears more than 10 times:
+""Hello! Hello there, how are you? Oh, Hello again! Hello, it's nice to see you.
+Hello from across the room! Hello, my friend! Hello, Hello, Hello! Hello once more, just wanted to say Hello.
+Hello, world! Hello, Hello, Hello!""
+That's eleven occurrences of ""Hello"" in one sentence.
 
-			Console.WriteLine(isld[0]);
-			Console.WriteLine(isld[1]);
-			Console.WriteLine(isld[2]);
+";
 
-			isld = SCommon.ParseIsland(text, "Hello, World!");
+			string text = RES_TEXT.Trim();
 
-			Console.WriteLine(isld == null); // True
+			for (; ; )
+			{
+				string[] isld = SCommon.ParseIsland(text, "Hello");
+
+				if (isld == null)
+					break;
+
+				Console.Write(isld[0]);
+				Console.Write("<HELLO>");
+
+				text = isld[2];
+			}
+			Console.WriteLine(text);
 		}
 
 #endif
@@ -2301,17 +2315,32 @@ namespace Charlotte.Commons
 
 		public void Test01()
 		{
-			string text = "<h1>Hello, Happy World!</h1>";
+			string RES_TEXT = @"
 
-			int[] isld = SCommon.GetIsland(text, 0, "Hello, Happy World!");
+Sure, here's a simple English sentence where the word ""Hello"" appears more than 10 times:
+""Hello! Hello there, how are you? Oh, Hello again! Hello, it's nice to see you.
+Hello from across the room! Hello, my friend! Hello, Hello, Hello! Hello once more, just wanted to say Hello.
+Hello, world! Hello, Hello, Hello!""
+That's eleven occurrences of ""Hello"" in one sentence.
 
-			Console.WriteLine(text.Substring(0, isld[0]));
-			Console.WriteLine(text.Substring(isld[0], isld[1] - isld[0]));
-			Console.WriteLine(text.Substring(isld[1]));
+";
 
-			isld = SCommon.GetIsland(text, 0, "Hello, World!");
+			string text = RES_TEXT.Trim();
+			int index = 0;
 
-			Console.WriteLine(isld == null); // True
+			for (; ; )
+			{
+				int[] isld = SCommon.GetIsland(text, index, "Hello");
+
+				if (isld == null)
+					break;
+
+				Console.Write(text.Substring(index, isld[0] - index));
+				Console.Write("<HELLO>");
+
+				index = isld[1];
+			}
+			Console.WriteLine(text.Substring(index));
 		}
 
 #endif
@@ -2478,14 +2507,14 @@ namespace Charlotte.Commons
 			{
 				int tagIndex;
 				string[] isld = SCommon.ParseNextIsland(html, out tagIndex
-					, "<p>", true
-					, "</p>", true
-					, "<h1>", true
-					, "</h1>", true
-					, "<div>", true
-					, "</div>", true
-					, "<head>", true
-					, "</head>", true
+					, "<p>", false
+					, "</p>", false
+					, "<h1>", false
+					, "</h1>", false
+					, "<div>", false
+					, "</div>", false
+					, "<head>", false
+					, "</head>", false
 					);
 
 				if (isld == null)
@@ -2539,10 +2568,10 @@ namespace Charlotte.Commons
 			{
 				int tagIndex;
 				string[] encl = SCommon.ParseNextEnclosed(html, out tagIndex
-					, "<div", ">", true
-					, "</div", ">", true
-					, "<span", ">", true
-					, "</span", ">", true
+					, "<div", ">", false
+					, "</div", ">", false
+					, "<span", ">", false
+					, "</span", ">", false
 					);
 
 				if (encl == null)
@@ -2593,14 +2622,14 @@ namespace Charlotte.Commons
 			{
 				int tagIndex;
 				int[] isld = SCommon.GetNextIsland(html, index, out tagIndex
-					, "<p>", true
-					, "</p>", true
-					, "<h1>", true
-					, "</h1>", true
-					, "<div>", true
-					, "</div>", true
-					, "<head>", true
-					, "</head>", true
+					, "<p>", false
+					, "</p>", false
+					, "<h1>", false
+					, "</h1>", false
+					, "<div>", false
+					, "</div>", false
+					, "<head>", false
+					, "</head>", false
 					);
 
 				if (isld == null)
@@ -2654,10 +2683,10 @@ namespace Charlotte.Commons
 			{
 				int tagIndex;
 				int[] encl = SCommon.GetNextEnclosed(html, index, out tagIndex
-					, "<div", ">", true
-					, "</div", ">", true
-					, "<span", ">", true
-					, "</span", ">", true
+					, "<div", ">", false
+					, "</div", ">", false
+					, "<span", ">", false
+					, "</span", ">", false
 					);
 
 				if (encl == null)
