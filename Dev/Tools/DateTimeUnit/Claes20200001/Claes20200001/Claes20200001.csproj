@@ -50,24 +50,18 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Commons\ArgsReader.cs" />
-    <Compile Include="Commons\SimpleDateTime.cs" />
     <Compile Include="Commons\ProcMain.cs" />
     <Compile Include="Commons\Randomizer.cs" />
     <Compile Include="Commons\SCommon.cs" />
+    <Compile Include="Commons\SimpleDateTime.cs" />
     <Compile Include="Commons\WorkingDir.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Test0001.cs" />
-    <Compile Include="Tools\Adler32.cs" />
-    <Compile Include="Tools\AntiWindowsDefenderSmartScreenTools.cs" />
-    <Compile Include="Tools\AutoList.cs" />
-    <Compile Include="Tools\AutoTable.cs" />
-    <Compile Include="Tools\SortedKeyValueList.cs" />
-    <Compile Include="Tools\SortedList.cs" />
-    <Compile Include="Tools\UniqueStringIssuer.cs" />
-    <Compile Include="Tools\UUIDTools.cs" />
+    <Compile Include="Tools\DateTimeUnit.cs" />
+    <Compile Include="Tools\DateUnit.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2646,7 +2646,7 @@ That's eleven occurrences of ""Hello"" in one sentence.
 
 #if false // GetNextEnclosed 使用例
 
-		public void Test02()
+		public void Test01()
 		{
 			string RES_HTML = @"
 
