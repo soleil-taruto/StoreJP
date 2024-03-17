@@ -24,6 +24,16 @@ namespace Charlotte.Tools
 		public static readonly DateTimeUnit DATETIME_MAX = new DateTimeUnit(DateUnit.DATE_MAX, 23, 59, 59);
 
 		/// <summary>
+		/// 最小の日時(ゆるい制限)
+		/// </summary>
+		public static readonly DateTimeUnit SOFT_DATETIME_MIN = new DateTimeUnit(DateUnit.SOFT_DATE_MIN, 0, 0, 0);
+
+		/// <summary>
+		/// 最大の日時(ゆるい制限)
+		/// </summary>
+		public static readonly DateTimeUnit SOFT_DATETIME_MAX = new DateTimeUnit(DateUnit.SOFT_DATE_MAX, 23, 59, 59);
+
+		/// <summary>
 		/// 保持している日時
 		/// </summary>
 		private SimpleDateTime Inner;
@@ -194,6 +204,15 @@ namespace Charlotte.Tools
 		public long GetValue()
 		{
 			return this.Inner.ToTimeStamp();
+		}
+
+		/// <summary>
+		/// 日時の文字列を取得する。
+		/// </summary>
+		/// <returns>日時</returns>
+		public override string ToString()
+		{
+			return string.Format("{0}/{1:D2}/{2:D2} {3:D2}:{4:D2}:{5:D2}", this.Year, this.Month, this.Day, this.Hour, this.Minute, this.Second);
 		}
 
 		/// <summary>

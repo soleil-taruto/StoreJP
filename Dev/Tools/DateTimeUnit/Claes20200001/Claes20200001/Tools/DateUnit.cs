@@ -16,12 +16,22 @@ namespace Charlotte.Tools
 		/// <summary>
 		/// このアプリケーションで使用可能な最小の年
 		/// </summary>
-		public static readonly int YEAR_MIN = 1900;
+		public static readonly int YEAR_MIN = 1000;
 
 		/// <summary>
 		/// このアプリケーションで使用可能な最大の年
 		/// </summary>
-		public static readonly int YEAR_MAX = 2400;
+		public static readonly int YEAR_MAX = 9999;
+
+		/// <summary>
+		/// ユーザーによって入力・選択可能な最小の年(ゆるい制限)
+		/// </summary>
+		public static readonly int SOFT_YEAR_MIN = 1970;
+
+		/// <summary>
+		/// ユーザーによって入力・選択可能な最大の年(ゆるい制限)
+		/// </summary>
+		public static readonly int SOFT_YEAR_MAX = 2270;
 
 		/// <summary>
 		/// 最小の日付
@@ -32,6 +42,16 @@ namespace Charlotte.Tools
 		/// 最大の日付
 		/// </summary>
 		public static readonly DateUnit DATE_MAX = new DateUnit(YEAR_MAX, 12, 31);
+
+		/// <summary>
+		/// 最小の日付(ゆるい制限)
+		/// </summary>
+		public static readonly DateUnit SOFT_DATE_MIN = new DateUnit(SOFT_YEAR_MIN, 1, 1);
+
+		/// <summary>
+		/// 最大の日付(ゆるい制限)
+		/// </summary>
+		public static readonly DateUnit SOFT_DATE_MAX = new DateUnit(SOFT_YEAR_MAX, 12, 31);
 
 		/// <summary>
 		/// 保持している日付
@@ -140,6 +160,15 @@ namespace Charlotte.Tools
 		public int GetValue()
 		{
 			return (int)(this.Inner.ToTimeStamp() / 1000000);
+		}
+
+		/// <summary>
+		/// 日付の文字列を取得する。
+		/// </summary>
+		/// <returns>日付</returns>
+		public override string ToString()
+		{
+			return string.Format("{0}/{1:D2}/{2:D2}", this.Year, this.Month, this.Day);
 		}
 
 		/// <summary>

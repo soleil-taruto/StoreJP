@@ -62,6 +62,7 @@
     <Compile Include="Tests\Test0001.cs" />
     <Compile Include="Tools\DateTimeUnit.cs" />
     <Compile Include="Tools\DateUnit.cs" />
+    <Compile Include="Tools\JapaneseDateUnit.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
