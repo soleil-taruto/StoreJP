@@ -56,7 +56,7 @@ namespace Charlotte
 			{
 				ProcMain.WriteLog(ex);
 
-				MessageBox.Show("" + ex, Path.GetFileNameWithoutExtension(ProcMain.SelfFile) + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//MessageBox.Show("" + ex, Path.GetFileNameWithoutExtension(ProcMain.SelfFile) + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				//Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
 				//Console.ReadLine();

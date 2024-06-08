@@ -449,17 +449,17 @@ namespace Charlotte.Commons
 		}
 
 		/// <summary>
-		/// 列挙の列挙(2次元配列)を列挙(1次元配列)に変換する。
+		/// 2次元配列を1次元配列(列挙)に変換する。
 		/// 例：{{ A, B, C }, { D, E, F }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
 		/// 尚 Concat(new T[][] { AAA, BBB, CCC }) は AAA.Concat(BBB).Concat(CCC) と同じ。
 		/// </summary>
 		/// <typeparam name="T">要素の型</typeparam>
 		/// <param name="src">列挙の列挙(2次元配列)</param>
 		/// <returns>列挙(1次元配列)</returns>
-		public static IEnumerable<T> Concat<T>(IEnumerable<IEnumerable<T>> src)
+		public static IEnumerable<T> Concat<T>(IList<T[]> src)
 		{
-			foreach (IEnumerable<T> part in src)
-				foreach (T element in part)
+			foreach (T[] srcPart in src)
+				foreach (T element in srcPart)
 					yield return element;
 		}
 
@@ -730,7 +730,7 @@ namespace Charlotte.Commons
 		{
 			oldRoot = PutYen(oldRoot);
 
-			if (!StartsWithIgnoreCase(path, oldRoot))
+			if (!path.StartsWithIgnoreCase(oldRoot))
 				throw new Exception("パスの配下ではありません。" + oldRoot + " -> " + path);
 
 			return path.Substring(oldRoot.Length);
@@ -885,7 +885,7 @@ namespace Charlotte.Commons
 
 				word = word.Trim();
 
-				if (index == 0 && GetReservedWordsForWindowsPath().Any(resWord => SCommon.EqualsIgnoreCase(resWord, word)))
+				if (index == 0 && GetReservedWordsForWindowsPath().Any(resWord => resWord.EqualsIgnoreCase(word)))
 				{
 					word = CHR_ALT;
 				}
@@ -2701,7 +2701,7 @@ That's eleven occurrences of ""Hello"" in one sentence.
 
 #endif
 
-		public static string[] ParseNextIsland(string text, out int tagIndex, params object[] tagTable)
+		public static string[] ParseNextIsland(string text, out int tagIndex, params object[] tagTable) // tagTable: (singleTag, ignoreCase)...
 		{
 			string[] nextIsld = null;
 			tagIndex = -1;
@@ -2723,7 +2723,7 @@ That's eleven occurrences of ""Hello"" in one sentence.
 			return nextIsld;
 		}
 
-		public static string[] ParseNextEnclosed(string text, out int tagIndex, params object[] tagTable)
+		public static string[] ParseNextEnclosed(string text, out int tagIndex, params object[] tagTable) // tagTable: (openTag, closeTag, ignoreCase)...
 		{
 			string[] nextEncl = null;
 			tagIndex = -1;
@@ -2745,7 +2745,7 @@ That's eleven occurrences of ""Hello"" in one sentence.
 			return nextEncl;
 		}
 
-		public static int[] GetNextIsland(string text, int startIndex, out int tagIndex, params object[] tagTable)
+		public static int[] GetNextIsland(string text, int startIndex, out int tagIndex, params object[] tagTable) // tagTable: (singleTag, ignoreCase)...
 		{
 			int[] nextIsld = null;
 			tagIndex = -1;
@@ -2767,7 +2767,7 @@ That's eleven occurrences of ""Hello"" in one sentence.
 			return nextIsld;
 		}
 
-		public static int[] GetNextEnclosed(string text, int startIndex, out int tagIndex, params object[] tagTable)
+		public static int[] GetNextEnclosed(string text, int startIndex, out int tagIndex, params object[] tagTable) // tagTable: (openTag, closeTag, ignoreCase)...
 		{
 			int[] nextEncl = null;
 			tagIndex = -1;

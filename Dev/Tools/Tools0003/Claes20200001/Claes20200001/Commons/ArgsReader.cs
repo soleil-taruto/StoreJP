@@ -24,7 +24,7 @@ namespace Charlotte.Commons
 
 		public bool ArgIs(string spell)
 		{
-			if (this.HasArgs() && SCommon.EqualsIgnoreCase(this.GetArg(), spell))
+			if (this.HasArgs() && this.GetArg().EqualsIgnoreCase(spell))
 			{
 				this.ArgIndex++;
 				return true;

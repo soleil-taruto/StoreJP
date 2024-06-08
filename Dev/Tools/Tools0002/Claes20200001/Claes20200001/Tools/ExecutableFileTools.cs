@@ -10,7 +10,7 @@ namespace Charlotte.Tools
 	/// <summary>
 	/// 実行ファイル(Portable Executable 形式のファイル)に関するツール
 	/// </summary>
-	public static class ExeFileTools
+	public static class ExecutableFileTools
 	{
 		/// <summary>
 		/// 指定された実行ファイルのビルド日時を得る。

@@ -241,28 +241,28 @@ namespace Charlotte.WebServices
 					continue;
 				}
 
-				if (SCommon.EqualsIgnoreCase(key, "Content-Length"))
+				if (key.EqualsIgnoreCase("Content-Length"))
 				{
 					if (value.Length < 1 || 19 < value.Length)
 						throw new Exception("Bad Content-Length value");
 
 					this.ContentLength = long.Parse(value);
 				}
-				else if (SCommon.EqualsIgnoreCase(key, "Transfer-Encoding"))
+				else if (key.EqualsIgnoreCase("Transfer-Encoding"))
 				{
-					this.Chunked = SCommon.ContainsIgnoreCase(value, "chunked");
+					this.Chunked = value.ContainsIgnoreCase("chunked");
 				}
-				else if (SCommon.EqualsIgnoreCase(key, "Content-Type"))
+				else if (key.EqualsIgnoreCase("Content-Type"))
 				{
 					this.ContentType = value;
 				}
-				else if (SCommon.EqualsIgnoreCase(key, "Expect"))
+				else if (key.EqualsIgnoreCase("Expect"))
 				{
-					this.Expect100Continue = SCommon.ContainsIgnoreCase(value, "100-continue");
+					this.Expect100Continue = value.ContainsIgnoreCase("100-continue");
 				}
-				else if (SCommon.EqualsIgnoreCase(key, "Connection"))
+				else if (key.EqualsIgnoreCase("Connection"))
 				{
-					this.KeepAlive = SCommon.ContainsIgnoreCase(value, "keep-alive");
+					this.KeepAlive = value.ContainsIgnoreCase("keep-alive");
 				}
 			}
 		}
@@ -423,6 +423,8 @@ namespace Charlotte.WebServices
 							.Concat(this.EndHeader())
 							.Concat(this.SendChunk(first)))
 							yield return relay;
+
+						first = null;
 
 						do
 						{

@@ -62,7 +62,7 @@
     <Compile Include="Tests\Test0001.cs" />
     <Compile Include="Tools\BitList.cs" />
     <Compile Include="Tools\DirToClusterFileTools.cs" />
-    <Compile Include="Tools\ExeFileTools.cs" />
+    <Compile Include="Tools\ExecutableFileTools.cs" />
     <Compile Include="Tools\JsonStringArrayTools.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\KnapsackProblemTools.cs" />

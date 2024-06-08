@@ -23,7 +23,7 @@ namespace Charlotte.Tools
 			{
 				foreach (string file in Directory.GetFiles(ProcMain.SelfDir, "*.exe"))
 				{
-					if (!SCommon.EqualsIgnoreCase(file, ProcMain.SelfFile))
+					if (!file.EqualsIgnoreCase(ProcMain.SelfFile))
 					{
 						byte[] fileData = File.ReadAllBytes(file);
 						SCommon.DeletePath(file);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Commons;
 
 namespace Charlotte
 {
@@ -30,6 +31,36 @@ namespace Charlotte
 			List<T> list = src.ToList();
 			list.Sort(comp);
 			return list;
+		}
+
+		public static bool EqualsIgnoreCase(this string a, string b)
+		{
+			return SCommon.EqualsIgnoreCase(a, b);
+		}
+
+		public static bool StartsWithIgnoreCase(this string a, string b)
+		{
+			return SCommon.StartsWithIgnoreCase(a, b);
+		}
+
+		public static bool EndsWithIgnoreCase(this string a, string b)
+		{
+			return SCommon.EndsWithIgnoreCase(a, b);
+		}
+
+		public static bool ContainsIgnoreCase(this string a, string b)
+		{
+			return SCommon.ContainsIgnoreCase(a, b);
+		}
+
+		public static int IndexOfIgnoreCase(this string a, string b)
+		{
+			return SCommon.IndexOfIgnoreCase(a, b);
+		}
+
+		public static int IndexOfIgnoreCase(this string a, char b)
+		{
+			return SCommon.IndexOfIgnoreCase(a, b);
 		}
 	}
 }

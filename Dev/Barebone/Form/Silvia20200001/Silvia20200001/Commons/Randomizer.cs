@@ -147,7 +147,7 @@ namespace Charlotte.Commons
 			if (modulo == 0)
 				throw new Exception("Bad modulo");
 
-			ulong t = (ulong.MaxValue % modulo + 1) % modulo;
+			ulong t = (~modulo + 1) % modulo;
 			ulong r;
 
 			do
