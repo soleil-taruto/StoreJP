@@ -89,11 +89,13 @@ namespace Charlotte
 
 			foreach (string file in merged[0])
 			{
-				Console.WriteLine("<L>" + file);
+				Console.WriteLine(string.Format("<左側のみ> {0}", file));
+				Console.WriteLine(string.Format("情報 {0} {1}", GetFileHash(file), new FileInfo(file).Length));
 			}
 			foreach (string file in merged[3])
 			{
-				Console.WriteLine("<R>" + file);
+				Console.WriteLine(string.Format("<右側のみ> {0}", file));
+				Console.WriteLine(string.Format("情報 {0} {1}", GetFileHash(file), new FileInfo(file).Length));
 			}
 			foreach (string file in merged[1])
 			{
@@ -102,7 +104,7 @@ namespace Charlotte
 
 				if (!IsSameFile(file1, file2))
 				{
-					Console.WriteLine("<D>" + file);
+					Console.WriteLine(string.Format("<相違あり> {0}", file));
 
 					FileInfo info1 = new FileInfo(file1);
 					FileInfo info2 = new FileInfo(file2);
@@ -113,8 +115,8 @@ namespace Charlotte
 						)
 					{
 						Console.WriteLine("ファイルが大きすぎるため比較は行いません。");
-						Console.WriteLine(string.Format("< {0} {1}", GetFileHash(file1), info1.Length));
-						Console.WriteLine(string.Format("> {0} {1}", GetFileHash(file2), info2.Length));
+						Console.WriteLine(string.Format("左側 {0} {1}", GetFileHash(file1), info1.Length));
+						Console.WriteLine(string.Format("右側 {0} {1}", GetFileHash(file2), info2.Length));
 					}
 					else
 					{
